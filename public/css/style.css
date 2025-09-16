@@ -1,0 +1,199 @@
+body {
+    font-size: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+    flex: 1;
+}
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+.nav-link {
+    color: #222222 !important;
+}
+
+/* footer */
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+    margin-left: 0.4rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline; 
+}
+.f-info-links, .f-info-social, .f-info-brand{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.f-info-social i{
+     font-size: 1.2rem;
+    margin-left: 1rem;
+}
+.f-info{
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.all{
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    color: #fe424d;
+}
+
+/* cards */
+/* cards */
+.card {
+    border: none !important;
+    margin-bottom: 2rem;
+    border-radius: 1rem !important;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.card-img-top {
+    width: 100% !important;
+    object-fit: cover !important;
+    display: block;
+}
+
+/* Overlay for image */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0); /* invisible by default */
+    transition: background 0.3s ease;
+    border-radius: 1rem;
+    z-index: 1;
+}
+
+.card-body {
+    padding: 0.8rem 0.5rem !important;
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.card-text p {
+    font-weight: 400;    
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* ✨ Hover effect */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover::before {
+    background: rgba(0,0,0,0.15); /* subtle dark overlay */
+}
+
+.card:hover .card-body {
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+}
+
+/* new listing  */
+/* Gradient Button */
+.btn-custom {
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #fe424d;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+/* Card Styling */
+.card {
+  border-radius: 1.25rem !important;
+}
+
+.card-body {
+  background: #fff;
+}
+
+/* edit page */
+
+/* Custom Button */
+.btn-custom {
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #fe424d;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Inputs focus with theme red */
+.form-control:focus {
+  border-color: #fe424d;
+  box-shadow: 0 0 6px rgba(254, 66, 77, 0.4);
+}
+
+/* listing info  */
+.btn-custom {
+  background-color: #000;
+  color: white;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 120px;   /* ✅ keeps width consistent */
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #fe424d;
+  color: white;
+}
+
+
+
+
+
