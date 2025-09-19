@@ -14,8 +14,8 @@ const listingSchema = new Schema({
         },
         url: {
             type: String,
-            default: "C:\\Users\\aman\\Downloads\\8efec4b4-00ce-4842-bdc5-0aafd4bae05d.jpg",
-            set: (v) => v === "" ? "C:\\Users\\aman\\Downloads\\8efec4b4-00ce-4842-bdc5-0aafd4bae05d.jpg" : v,
+            default: '/placeholders/no-image.jpg',
+            set: (v) => v === "" ? '/placeholders/no-image.jpg' : v,
         }
     },
     price: Number,

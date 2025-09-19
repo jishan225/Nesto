@@ -4,20 +4,18 @@
     <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
      <!-- Updated show page image section -->
 <% if (listing.image && listing.image.url) { %>
-    <img
-        src="<%= listing.image.url %>"
-        alt="<%= listing.title %>"
-        class="card-img-top"
-        style="object-fit: cover; height: 350px"
-        onerror="this.src='https://via.placeholder.com/800x350?text=Image+Not+Found'"
-    />
+  <img
+    src="<%= listing.image.url %>"
+    alt="<%= listing.title %>"
+    class="card-img-top"
+    style="object-fit: cover; height: 350px"
+    onerror="this.src='https://placehold.co/800x350?text=No+Image+Available'" />
 <% } else { %>
-    <img
-        src="https://via.placeholder.com/800x350?text=No+Image+Available"
-        alt="No Image"
-        class="card-img-top"
-        style="object-fit: cover; height: 350px"
-    />
+  <img
+    src="https://placehold.co/800x350?text=No+Image+Available"
+    alt="No Image"
+    class="card-img-top"
+    style="object-fit: cover; height: 350px" />
 <% } %>
       <div class="card-body p-4">
         <!-- Heading -->
