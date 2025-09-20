@@ -19,12 +19,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
-
-
-const listingRouter = require("./routes/listing.js");
-const reviewRouter = require("./routes/review.js");
-const userRouter = require("./routes/user.js");
-
 const sessionOption = {
     secret: "mysupersecretcode",
     resave: false,
@@ -35,15 +29,8 @@ const sessionOption = {
         httpOnly: true, 
     }
 };
-
 app.use(session(sessionOption));
 app.use(flash());
-
-app.use((req, res, next) =>{
-    res.locals.success = req.flash("success");
-     res.locals.error = req.flash("error");
-    next();
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,6 +38,22 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+app.use((req, res, next) =>{
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+    next();
+});
+
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
+
+
+
+
 
 //DB Connection.
 main().then(() =>{

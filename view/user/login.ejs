@@ -1,30 +1,98 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Login on Nesto</h1>
-    <div class="col-6 offset-3">
-       <form action="/login" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="username" class="form-label" >Username</label>
-          <input
-            name="username"
-            id="username"
-            type="text"
-            class="form-control"
-            required
-            />
+<div class="row justify-content-center my-5">
+  <div class="col-lg-6 col-md-8 col-sm-10">
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+      <div class="card-body p-5">
+        <!-- Header -->
+        <div class="text-center mb-4">
+          <h2 class="fw-bold mb-2" style="color: #fe424d">
+            Welcome Back to Nesto
+          </h2>
+          <p class="text-muted mb-0">Please sign in to your account</p>
         </div>
-         <div class="mb-3">
-          <label for="password" class="form-label" >Password</label>
-          <input
-            name="password"
-            id="password"
-            type="password"
-            class="form-control"
-            required
+
+        <!-- Login Form -->
+        <form action="/login" method="POST" class="needs-validation" novalidate>
+          <div class="mb-4">
+            <label for="username" class="form-label fw-semibold" style="color: #fe424d">
+              Username
+            </label>
+            <input
+              name="username"
+              id="username"
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Enter your username"
+              style="border-radius: 0.5rem; border: 2px solid #e9ecef; padding: 0.75rem 1rem"
+              required
             />
-        </div>
-        <button class="btn btn-success">Login</button>
-       </form>
+            <div class="invalid-feedback">
+              Please provide a valid username.
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label fw-semibold" style="color: #fe424d">
+              Password
+            </label>
+            <input
+              name="password"
+              id="password"
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="Enter your password"
+              style="border-radius: 0.5rem; border: 2px solid #e9ecef; padding: 0.75rem 1rem"
+              required
+            />
+            <div class="invalid-feedback">
+              Please provide a valid password.
+            </div>
+          </div>
+
+          <!-- Login Button -->
+          <div class="d-grid mb-4">
+            <button 
+              type="submit" 
+              class="btn btn-lg fw-bold py-3"
+              style="
+                background-color: #fe424d; 
+                border: none; 
+                border-radius: 0.5rem;
+                color: white;
+                transition: all 0.3s ease;
+              "
+              onmouseover="this.style.backgroundColor='#e63946'"
+              onmouseout="this.style.backgroundColor='#fe424d'"
+            >
+              Sign In
+            </button>
+          </div>
+
+          <!-- Sign Up Link -->
+          <div class="text-center">
+            <p class="mb-0 text-muted">
+              Don't have an account? 
+              <a href="/signup" class="text-decoration-none fw-bold" style="color: #fe424d">
+                Sign up here
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
+
+<style>
+/* Enhanced form focus effects */
+.form-control:focus {
+  border-color: #fe424d !important;
+  box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.25) !important;
+}
+
+/* Hover effects for links */
+a[style*="#fe424d"]:hover {
+  color: #e63946 !important;
+}
+</style>
