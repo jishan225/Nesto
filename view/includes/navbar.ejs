@@ -1,24 +1,105 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top shadow-sm">
+  <div class="container-fluid px-3">
+    <!-- Brand with Bootstrap classes -->
+    <a class="navbar-brand fw-bold fs-4 text-primary d-flex align-items-center" href="/">
+      <i class="fa-regular fa-compass me-2"></i>
+      <span class="text-danger">Nesto</span>
+    </a>
+    
+    <!-- Bootstrap hamburger with custom styling -->
+    <button 
+      class="navbar-toggler border-danger shadow-sm" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation"
+      style="border-width: 2px; border-color: #fe424d !important;"
+    >
+      <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 30 30\'%3e%3cpath stroke=\'%23fe424d\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' stroke-width=\'2\' d=\'M4 7h22M4 15h22M4 23h22\'/%3e%3c/svg%3e');"></span>
     </button>
+
+    <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link"  href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add Listings</a>
+      <div class="navbar-nav me-auto">
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/">Home</a>
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/listings">All Listings</a>
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/listings/new">Add Listings</a>
       </div>
-      <div class="navbar-nav ms-auto">
+      
+      <!-- Right side navigation -->
+      <div class="navbar-nav">
         <% if(!currUser){ %>
-        <a class="nav-link"  href="/signup">SignUp</a>
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/signup">SignUp</a>
+        <!-- ✅ FIXED: Removed outline from Login button -->
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/login" 
+           style="color: white; border: none;">Login</a>
         <%}%>
         <% if(currUser){ %>
-        <a class="nav-link" href="/logout">Logout</a>
-         <%}%>
+        <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/logout" 
+           style="background-color: #fe424d; color: white;">Logout</a>
+        <%}%>
       </div>
     </div>
   </div>
 </nav>
+
+<style>
+/* ✅ FIXED: Full background for mobile collapse */
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    background-color: #ffffff !important;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,.1);
+  }
+  
+  /* ✅ FIXED: Background during animation */
+  .navbar-collapse.collapsing {
+    background-color: #ffffff !important;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0,0,0,.1);
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .navbar-nav.me-auto {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .nav-link {
+    margin: 0.25rem 0;
+    display: block;
+    width: 100%;
+  }
+}
+
+/* Hover effects */
+.nav-link:hover {
+  background-color: rgba(254, 66, 77, 0.1) !important;
+  color: #fe424d !important;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(254, 66, 77, 0.1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.25) !important;
+}
+
+/* ✅ FIXED: Ensure proper expansion */
+.navbar-collapse.show {
+  background-color: #ffffff !important;
+}
+</style>

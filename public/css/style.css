@@ -38,7 +38,7 @@ body {
     align-items: center;
 }
 .f-info-social i{
-     font-size: 1.2rem;
+    font-size: 1.2rem;
     margin-left: 1rem;
 }
 .f-info{
@@ -64,7 +64,7 @@ body {
     margin-bottom: 2rem;
     border-radius: 1rem !important;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
 }
 
@@ -83,7 +83,7 @@ body {
     height: 100%;
     width: 100%;
     background: rgba(0,0,0,0); /* invisible by default */
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
     border-radius: 1rem;
     z-index: 1;
 }
@@ -157,7 +157,7 @@ body {
   padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .btn-custom:hover {

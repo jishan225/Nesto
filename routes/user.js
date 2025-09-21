@@ -4,59 +4,40 @@ const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRegisteredUrl } = require("../middleware.js");
+const userController = require("../controllers/user.js");
 
-router.get("/signup", (req, res) => {
-  res.render("user/signup.ejs");
-});
+router
+  .route("/signup")
+  .get(userController.renderSignupForm)
+  .post(wrapAsync(userController.signup));
 
-router.post(
-  "/signup",
-  wrapAsync(async (req, res) => {
-    try {
-      let { username, email, password } = req.body;
-      const newUser = new User({ email, username });
-      const registerUser = await User.register(newUser, password);
-      console.log(registerUser);
-      req.login(registerUser, ((err) => {
-        if(err){
-          return next();
-        };
-      req.flash("success", "Welcome to Nesto");
-      res.redirect("/listings");
-      }));
-    } catch (e) {
-      req.flash("error", e.message);
-      res.redirect("/signup"); 
-    }
-  })
-);
+// router.get("/signup", userController.renderSignupForm);
 
-router.get("/login", (req, res) => {
-  res.render("user/login.ejs");
-});
+// router.post("/signup", wrapAsync(userController.signup));
 
-router.post(
-  "/login",
+router.route("/login")
+.get( userController.renderLoginForm)
+.post(
   saveRegisteredUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  async (req, res) => {
-    req.flash("success", "Welcome to Nesto you are logged in!");
-    let redirectUrl = res.locals.redirectUrl || "/listings"
-    res.redirect(redirectUrl);
-  }
+  userController.login
 );
 
-router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if(err){
-      return next(err);
-    }
-    req.flash("success", "You are logged out!!");
-    res.redirect("/listings");
-  });
-});
+// router.get("/login", userController.renderLoginForm);
+
+// router.post(
+//   "/login",
+//   saveRegisteredUrl,
+//   passport.authenticate("local", {
+//     failureRedirect: "/login",
+//     failureFlash: true,
+//   }),
+//   userController.login
+// );
+
+router.get("/logout", userController.logout);
 
 module.exports = router;

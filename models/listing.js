@@ -8,15 +8,8 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        filename: {
-            type: String,
-            default: "listingimage"
-        },
-        url: {
-            type: String,
-            default: '/placeholders/no-image.jpg',
-            set: (v) => v === "" ? '/placeholders/no-image.jpg' : v,
-        }
+    url: String,
+    filename: String,
     },
     price: Number,
     location: String,
