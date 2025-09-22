@@ -62,7 +62,17 @@
             <button type="submit" class="btn-custom">Delete Listing</button>
           </form>
         </div>
-        <% } %> <% if(currUser){%>
+        <% } %>
+       <div>
+  <!-- Current (incorrect) -->
+<a href="/listings/<%= listing._id %>/bookings" class="btn-custom">My Booking</a>
+
+<!-- Should be -->
+<a href="/listings/<%= listing._id %>/bookings/new" class="btn-custom">Book Now</a>
+
+</div>
+
+        <% if(currUser){%>
         <!-- Review Section -->
         <div class="border-top pt-4 mt-4">
           <h4 class="text-center fw-bold mb-4" style="color: #fe424d">

@@ -1,6 +1,6 @@
 const Listing = require("./models/listing");
 const Review = require("./models/review");
-module.exports.isLoggendIn = (req, res, next) => {
+module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
         req.flash("error", "You need to login first!!");

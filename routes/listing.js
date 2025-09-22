@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
-const { isLoggendIn, isOwner } = require("../middleware.js");
+const { isLoggedIn, isOwner } = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 const multer  = require('multer');
 const {storage} = require("../cloudConfig.js")
@@ -25,25 +25,27 @@ router
   .route("/")
   .get(wrapAsync(listingController.index))
   .post(
-    isLoggendIn,
+    isLoggedIn,
     validationListing,
     upload.single('listing[image]'),
     wrapAsync(listingController.createListing)
   )
 
   //New ROUTE
-router.get("/new", isLoggendIn, listingController.renderNewForm);  
+router.get("/new", isLoggedIn, listingController.renderNewForm);  
 
 router
   .route("/:id")
   .get( wrapAsync(listingController.showListings))
   .put(
-    isLoggendIn,
+    isLoggedIn,
     isOwner,
+    upload.single('listing[image]'),
+    validationListing,
     wrapAsync(listingController.updateListing)
   )
   .delete(
-  isLoggendIn,
+  isLoggedIn,
   isOwner,
   wrapAsync(listingController.deleteListing)
 );
@@ -67,7 +69,7 @@ router
 //Edit Route
 router.get(
   "/:id/edit",
-  isLoggendIn,
+  isLoggedIn,
   isOwner,
   wrapAsync(listingController.editListing)
 );

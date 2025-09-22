@@ -1,0 +1,430 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-danger text-white text-center py-3 rounded-top">
+          <h2 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Book: <%= listing.title %></h2>
+          <small class="opacity-75">Complete your reservation details</small>
+        </div>
+        
+        <div class="card-body p-4">
+          <!-- Booking Form -->
+          <form id="bookingForm" action="/listings/<%= listing._id %>/bookings" method="POST" novalidate>
+            
+            <!-- Guest Information Section -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h5 class="border-bottom pb-2 mb-3">
+                  <i class="fas fa-user-circle me-2"></i>Guest Information
+                </h5>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="name" class="form-label required">
+                  <i class="fas fa-user me-1"></i>Full Name
+                </label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="form-control" 
+                  required 
+                  minlength="2"
+                  maxlength="50"
+                  placeholder="Enter your full name"
+                  aria-describedby="nameHelp"
+                >
+                <div id="nameHelp" class="form-text">Enter your name as it appears on your ID</div>
+                <div class="invalid-feedback">Please enter your full name (2-50 characters)</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label required">
+                  <i class="fas fa-envelope me-1"></i>Email Address
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="form-control" 
+                  required
+                  placeholder="your.email@example.com"
+                  aria-describedby="emailHelp"
+                >
+                <div id="emailHelp" class="form-text">We'll send your booking confirmation here</div>
+                <div class="invalid-feedback">Please enter a valid email address</div>
+              </div>
+            </div>
+
+            <!-- Booking Details Section -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h5 class="border-bottom pb-2 mb-3">
+                  <i class="fas fa-calendar-alt me-2"></i>Booking Details
+                </h5>
+              </div>
+              
+              <div class="col-md-4 mb-3">
+                <label for="checkin" class="form-label required">
+                  <i class="fas fa-sign-in-alt me-1"></i>Check-in Date
+                </label>
+                <input 
+                  type="date" 
+                  id="checkin" 
+                  name="checkIn" 
+                  class="form-control" 
+                  required
+                  min="<%= new Date().toISOString().split('T')[0] %>"
+                  aria-describedby="checkinHelp"
+                >
+                <div id="checkinHelp" class="form-text">Earliest check-in: Today</div>
+                <div class="invalid-feedback">Please select a valid check-in date</div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="checkout" class="form-label required">
+                  <i class="fas fa-sign-out-alt me-1"></i>Check-out Date
+                </label>
+                <input 
+                  type="date" 
+                  id="checkout" 
+                  name="checkOut" 
+                  class="form-control" 
+                  required
+                  min="<%= new Date(Date.now() + 24*60*60*1000).toISOString().split('T')[0] %>"
+                  aria-describedby="checkoutHelp"
+                >
+                <div id="checkoutHelp" class="form-text">Must be after check-in date</div>
+                <div class="invalid-feedback">Please select a valid check-out date</div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="guests" class="form-label required">
+                  <i class="fas fa-users me-1"></i>Number of Guests
+                </label>
+                <input 
+                  type="number" 
+                  id="guests" 
+                  name="guests" 
+                  class="form-control" 
+                  required
+                  min="1" 
+                  max="<%= listing.maxGuests || 10 %>" 
+                  value="1"
+                  aria-describedby="guestsHelp"
+                >
+                <div id="guestsHelp" class="form-text">Maximum: <%= listing.maxGuests || 10 %> guests</div>
+                <div class="invalid-feedback">Please enter a valid number of guests</div>
+              </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <h6 class="card-title">
+                      <i class="fas fa-rupee-sign me-2"></i>Pricing Summary
+                    </h6>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Price per night:</span>
+                      <span class="fw-bold">₹<%= listing.price.toLocaleString() %></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span id="nightsText">Number of nights:</span>
+                      <span id="nightsCount" class="fw-bold">Select dates</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                      <span class="h5">Total Amount:</span>
+                      <span id="totalPrice" class="h5 text-success fw-bold">₹0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Requests Section -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <label for="specialRequests" class="form-label">
+                  <i class="fas fa-comment-alt me-1"></i>Special Requests (Optional)
+                </label>
+                <textarea 
+                  id="specialRequests" 
+                  name="specialRequests" 
+                  class="form-control" 
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Any special requests or notes for your stay..."
+                  aria-describedby="requestsHelp"
+                ></textarea>
+                <div id="requestsHelp" class="form-text">
+                  <span id="charCount">0</span>/500 characters
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="form-check">
+                  <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="terms" 
+                    name="terms" 
+                    required
+                  >
+                  <label class="form-check-label" for="terms">
+                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">terms and conditions</a> and <a href="#" data-bs-toggle="modal" data-bs-target="#policyModal">cancellation policy</a>
+                  </label>
+                  <div class="invalid-feedback">You must agree to the terms and conditions</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="row">
+              <div class="col-12">
+                <button type="submit" class="btn btn-danger btn-lg w-100" id="submitBtn">
+                  <i class="fas fa-check-circle me-2"></i>
+                  <span id="btnText">Confirm Booking</span>
+                  <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status">
+                    <span class="visually-hidden">Processing...</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Back Link -->
+          <div class="text-center mt-3">
+            <a href="/listings/<%= listing._id %>" class="text-muted">
+              <i class="fas fa-arrow-left me-1"></i>Back to listing details
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Terms and Conditions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>By booking this property, you agree to:</p>
+        <ul>
+          <li>Provide accurate information during booking</li>
+          <li>Respect the property and its amenities</li>
+          <li>Follow house rules and local regulations</li>
+          <li>Pay the full amount as agreed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancellation Policy Modal -->
+<div class="modal fade" id="policyModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cancellation Policy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Free Cancellation:</strong> Cancel up to 24 hours before check-in for a full refund.</p>
+        <p><strong>Late Cancellation:</strong> Cancellations within 24 hours are subject to a 50% charge.</p>
+        <p><strong>No-show:</strong> Full booking amount will be charged for no-shows.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.required::after {
+  content: " *";
+  color: #dc3545;
+}
+
+.form-control:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-danger {
+  background: linear-gradient(45deg, #dc3545, #c82333);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(45deg, #c82333, #bd2130);
+  transform: translateY(-1px);
+}
+
+#charCount {
+  font-weight: bold;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Form elements
+  const form = document.getElementById('bookingForm');
+  const checkinInput = document.getElementById('checkin');
+  const checkoutInput = document.getElementById('checkout');
+  const guestsInput = document.getElementById('guests');
+  const specialRequestsInput = document.getElementById('specialRequests');
+  const submitBtn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const btnSpinner = document.getElementById('btnSpinner');
+  
+  // Display elements
+  const totalPriceElement = document.getElementById('totalPrice');
+  const nightsCountElement = document.getElementById('nightsCount');
+  const charCountElement = document.getElementById('charCount');
+  
+  // Constants
+  const pricePerNight = <%= listing.price %>;
+  const maxGuests = <%= listing.maxGuests || 10 %>;
+
+  // Price calculation function
+  function calculateTotal() {
+    const checkin = new Date(checkinInput.value);
+    const checkout = new Date(checkoutInput.value);
+    
+    if (checkin && checkout && checkout > checkin) {
+      const timeDiff = checkout.getTime() - checkin.getTime();
+      const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      const total = nights * pricePerNight;
+      
+      nightsCountElement.textContent = `${nights} night${nights > 1 ? 's' : ''}`;
+      totalPriceElement.textContent = `₹${total.toLocaleString()}`;
+      totalPriceElement.className = 'h5 text-success fw-bold';
+    } else {
+      nightsCountElement.textContent = 'Select dates';
+      totalPriceElement.textContent = '₹0';
+      totalPriceElement.className = 'h5 text-muted fw-bold';
+    }
+  }
+
+  // Character counter for special requests
+  function updateCharCount() {
+    const count = specialRequestsInput.value.length;
+    charCountElement.textContent = count;
+    charCountElement.style.color = count > 450 ? '#dc3545' : count > 400 ? '#ffc107' : '#6c757d';
+  }
+
+  // Date validation
+  function validateDates() {
+    const checkin = new Date(checkinInput.value);
+    const checkout = new Date(checkoutInput.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Check-in validation
+    if (checkin < today) {
+      checkinInput.setCustomValidity('Check-in date cannot be in the past');
+    } else {
+      checkinInput.setCustomValidity('');
+    }
+
+    // Check-out validation
+    if (checkout <= checkin) {
+      checkoutInput.setCustomValidity('Check-out must be after check-in date');
+    } else {
+      checkoutInput.setCustomValidity('');
+    }
+
+    // Update checkout minimum date
+    if (checkinInput.value) {
+      const minCheckout = new Date(checkin);
+      minCheckout.setDate(minCheckout.getDate() + 1);
+      checkoutInput.min = minCheckout.toISOString().split('T')[0];
+    }
+  }
+
+  // Guest validation
+  function validateGuests() {
+    const guests = parseInt(guestsInput.value);
+    if (guests < 1 || guests > maxGuests) {
+      guestsInput.setCustomValidity(`Number of guests must be between 1 and ${maxGuests}`);
+    } else {
+      guestsInput.setCustomValidity('');
+    }
+  }
+
+  // Form submission handling
+  function handleSubmit(event) {
+    event.preventDefault();
+    
+    // Validate all fields
+    validateDates();
+    validateGuests();
+    
+    // Check form validity
+    if (!form.checkValidity()) {
+      event.stopPropagation();
+      form.classList.add('was-validated');
+      return;
+    }
+
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText.textContent = 'Processing...';
+    btnSpinner.classList.remove('d-none');
+
+    // Submit form after short delay (for UX)
+    setTimeout(() => {
+      form.submit();
+    }, 1000);
+  }
+
+  // Event listeners
+  checkinInput.addEventListener('change', function() {
+    validateDates();
+    calculateTotal();
+  });
+
+  checkoutInput.addEventListener('change', function() {
+    validateDates();
+    calculateTotal();
+  });
+
+  guestsInput.addEventListener('input', validateGuests);
+  specialRequestsInput.addEventListener('input', updateCharCount);
+  form.addEventListener('submit', handleSubmit);
+
+  // Initialize
+  updateCharCount();
+  
+  // Real-time validation feedback
+  const inputs = form.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      if (this.checkValidity()) {
+        this.classList.remove('is-invalid');
+        this.classList.add('is-valid');
+      } else {
+        this.classList.remove('is-valid');
+        this.classList.add('is-invalid');
+      }
+    });
+  });
+});
+</script>
+
+
