@@ -4,6 +4,24 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+/* 🔴 Glowing bowl background */
+
+body::before {
+  content: "";
+  position: fixed;
+  bottom: -50px;   /* raised higher (-100px was lower) */
+  left: 50%;
+  width: 900px;    /* bigger width */
+  height: 450px;   /* bigger height */
+  background: radial-gradient(circle at center, #fe424d 0%, rgba(254,66,77,0) 75%);
+  border-radius: 50% 50% 0 0; /* half-bowl shape */
+  transform: translateX(-50%);
+  filter: blur(150px);  /* stronger glow */
+  z-index: -1; /* stays behind content */
+  opacity: 0.85;
+}
+
+
 .container{
     flex: 1;
 }
