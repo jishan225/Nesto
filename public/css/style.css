@@ -76,7 +76,7 @@ body::before {
 }
 
 /* cards */
-/* cards */
+
 .card {
     border: none !important;
     margin-bottom: 2rem;
@@ -209,6 +209,30 @@ body::before {
 .btn-custom:hover {
   background-color: #fe424d;
   color: white;
+}
+
+/* Make the small action button consistent with your theme */
+.btn-book-sm {
+  border-width: 2px;
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  line-height: 1.15;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Subtle hover to match your red theme */
+.btn-book-sm:hover {
+  background-color: #fe424d;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(254, 66, 77, 0.25);
+}
+
+/* Press feedback */
+.btn-book-sm:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 

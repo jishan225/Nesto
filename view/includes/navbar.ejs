@@ -35,34 +35,44 @@
       <div class="navbar-nav me-auto">
 
         <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/listings"
-          >All Listings</a
+          ><i class="fa-regular fa-house"></i> All Listings</a
         >
         <a
           class="nav-link fw-medium px-3 py-2 rounded-2 mx-1"
           href="/listings/new"
-          >Add Listings</a
+          ><i class="fa-solid fa-plus"></i> Add Listings</a
         >
+              <!-- includes/navbar.ejs -->
+       <a
+          class="nav-link fw-medium px-3 py-2 rounded-2 mx-1"
+          href="/mybookings"
+          ><i class="fa-regular fa-calendar-check"></i> My Bookings</a
+        >
+
       </div>
+
+
+
 
       <!-- Right side navigation -->
       <div class="navbar-nav">
         <% if(!currUser){ %>
         <a class="nav-link fw-medium px-3 py-2 rounded-2 mx-1" href="/signup"
-          >SignUp</a
+          ><i class="fa-solid fa-user-plus"></i> SignUp</a
         >
         <!-- ✅ FIXED: Removed outline from Login button -->
         <a
           class="nav-link fw-medium px-3 py-2 rounded-2 mx-1"
           href="/login"
           style="color: white; border: none"
-          >Login</a
+          ><i class="fa-regular fa-user"></i> Login</a
         >
         <%}%> <% if(currUser){ %>
         <a
           class="nav-link fw-medium px-3 py-2 rounded-2 mx-1"
           href="/logout"
           style="color: white"
-          >Logout</a
+          ><i class="fa-solid fa-circle-user"></i> Logout</a
         >
         <%}%>
       </div>

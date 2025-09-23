@@ -63,8 +63,23 @@
           </form>
         </div>
         <% } %>
-       <div>
-</div>
+
+<% 
+  // If owner is populated, it will be an object with _id; otherwise it’s an ObjectId
+  const ownerId = listing.owner && listing.owner._id ? listing.owner._id : listing.owner;
+  const isOwner = currUser && ownerId && String(ownerId) === String(currUser._id);
+%>
+
+<% if (!isOwner) { %>
+  <div class="text-center mt-3">
+    <a href="/listings/<%= listing._id %>/bookings/new" class="btn btn-outline-danger btn-sm btn-book-sm">
+      <i class="fas fa-calendar-plus me-1"></i>
+      <%= currUser ? 'Book Now' : 'Login to Book' %>
+    </a>
+  </div>
+<% } %>
+
+
 
         <% if(currUser){%>
         <!-- Review Section -->

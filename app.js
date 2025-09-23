@@ -1,8 +1,6 @@
 if(process.env.NODE_ENV != "production"){
    require('dotenv').config();
 }
-
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -15,7 +13,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-
 
 
 app.use(express.static(path.join(__dirname, "/public")));
@@ -56,9 +53,8 @@ app.use((req, res, next) =>{
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-
-
-
+const bookingRouter = require("./routes/bookings.js");
+const myBookingsRouter = require("./routes/mybookings"); 
 
 //DB Connection.
 main().then(() =>{
@@ -88,6 +84,8 @@ async function main(){
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/listings/:id/bookings", bookingRouter);
+app.use("/", myBookingsRouter);
 
 
 // app.get("/demouser", async(req, res) => {
