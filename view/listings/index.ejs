@@ -1,10 +1,59 @@
 <% layout("/layouts/boilerplate") %>
+<style>
+  .tax-info {
+    display: none;
+  }
+  
+</style>
+<div class="container-xxl my-3">
+  <div class="d-flex flex-nowrap overflow-auto gap-2 py-1 align-items-center">
+       <div class="ms-2 p-2 border rounded d-inline-flex align-items-center flex-shrink-0">
+      <div class="form-check form-switch m-0">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label ms-2 mb-0" for="flexSwitchCheckDefault">Include taxes</label>
+      </div>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-fire"></i><span>Trending</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-bed"></i><span>Rooms</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-mountain-city"></i><span>Iconic Cities</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-mountain-sun"></i><span>Mountains</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-brands fa-fort-awesome"></i><span>Castles</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-person-swimming"></i><span>Pools</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-tent"></i><span>Camping</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-tractor"></i><span>Farms</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-snowflake"></i><span>Arctic</span>
+    </div>
+    <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-dumbbell"></i><span>Gyms</span>
+    </div>
+     <div class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-2 flex-shrink-0">
+      <i class="fa-solid fa-ship"></i><span>Cruise</span>
+    </div>
 
-<h3 class="all">All Listings</h3>
-<!-- <form method="GET" action="/listings/new">
-       <button>Create New Listing</button>
-    </form> -->
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <!-- Tax Toggle: bordered with rounded edges -->
+ 
+  </div>
+</div>
+
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
   <% for(let listing of allListings) { %>
     <a href="/listings/<%= listing._id%>" class="listing-link">
   <div class="card col"> 
@@ -14,6 +63,7 @@
        <b> <%= listing.title%></b><br />
         &#8377; <%= (listing.price || 0).toLocaleString("en-IN") %> 
 / night
+        <b><i class="tax-info">&nbsp;+18% GST</i></b>
       </p>
     </div>
   </div>
@@ -27,3 +77,16 @@
         <li> <a href="/listings/<%= listing. _id %>"><%= listing.title%> </a> </li>
 <% } %>
 </ul> -->
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+      let taxInfo = document.getElementsByClassName("tax-info");
+      for(info of taxInfo){
+        if(info.style.display != "inline"){
+        info.style.display = "inline"; 
+        }else{
+          info.style.display = "none"; 
+        }    
+      }
+  })
+</script>
