@@ -117,7 +117,7 @@ app.use("/", myBookingsRouter);
 // })
 
 app.get("/", (req, res) => {
-    res.send("hola amigo");
+    res.redirect("/listings");
 });
 
 app.all("/*path", (req, res, next) => {
