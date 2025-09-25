@@ -57,7 +57,7 @@ Nesto/
 
 ⚙️ Installation & Setup
 1️⃣ Clone the repository
-git clone https://github.com/your-username/nesto.git
+git clone https://github.com/jishan225/nesto.git
 cd nesto
 
 2️⃣ Install dependencies
