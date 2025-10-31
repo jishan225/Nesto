@@ -37,23 +37,7 @@ Frontend – EJS, HTML, CSS, Bootstrap
 Backend – Node.js, Express.js
 Database – MongoDB (Mongoose ODM)
 Authentication – Passport.js / bcrypt (for hashing passwords)
-Architecture – MVC (Model-View-Controller)
-
-* PROJECT STRUCTURE
-Nesto/
-│
-├── models/            # MongoDB models (User, Listing, Booking)
-├── routes/            # Express route handlers
-├── controllers/       # Controllers for handling logic
-├── views/             # EJS templates
-│   ├── listings/      # Property-related views
-│   ├── bookings/      # Booking-related views
-│   ├── users/         # Auth views (login, signup)
-│   └── layouts/       # Boilerplate layouts
-├── public/            # Static assets (CSS, JS, images)
-├── app.js             # Main application entry
-├── package.json       # Dependencies & scripts
-└── README.md          # Project documentation
+Architecture – MVC (Model-View-Controller)       
 
 ⚙️ Installation & Setup
 1️⃣ Clone the repository
