@@ -4,24 +4,25 @@ module.exports.renderSignupForm = (req, res) => {
   res.render("user/signup.ejs");
 };
 
-module.exports.signup = async (req, res) => {
-    try {
-      let { username, email, password } = req.body;
-      const newUser = new User({ email, username });
-      const registerUser = await User.register(newUser, password);
-      console.log(registerUser);
-      req.login(registerUser, ((err) => {
-        if(err){
-          return next();
-        };
+module.exports.signup = async (req, res, next) => {
+  try {
+    let { username, email, password } = req.body;
+    const newUser = new User({ email, username });
+    const registeredUser = await User.register(newUser, password);
+
+    req.login(registeredUser, (err) => {
+      if (err) return next(err);
+
       req.flash("success", "Welcome to Nesto");
-      res.redirect("/listings");
-      }));
-    } catch (e) {
-      req.flash("error", e.message);
-      res.redirect("/signup"); 
-    }
+      return res.redirect("/listings");  // ALWAYS return
+    });
+
+  } catch (e) {
+    req.flash("error", e.message);
+    return res.redirect("/signup");  // return here too
+  }
 };
+
 
 module.exports.renderLoginForm = (req, res) => {
   res.render("user/login.ejs");
